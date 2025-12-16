@@ -1,14 +1,3 @@
-PROJECT NOT UNDER ACTIVE MANAGEMENT
-
-This project will no longer be maintained by Intel.
-
-Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases, or updates, to this project.  
-
-Intel no longer accepts patches to this project.
-
-If you have an ongoing need to use this project, are interested in independently developing it, or would like to maintain patches for the open source software community, please create your own fork of this project.  
-
-Contact: webadmin@linux.intel.com
 # Network Intrusion Detection
 
 ## Introduction
@@ -29,21 +18,21 @@ The solution contained in this repo uses the following Intel® packages:
 
 * ***Intel® Distribution for Python****
 
-	The [Intel® Distribution for Python*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/distribution-for-python.html) provides:
+    The [Intel® Distribution for Python*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/distribution-for-python.html) provides:
 
     * Scalable performance using all available CPU cores on laptops, desktops, and powerful servers
-	* Support for the latest CPU instructions
-	* Near-native performance through acceleration of core numerical and machine learning packages with libraries like the Intel® oneAPI Math Kernel Library (oneMKL) and Intel® oneAPI Data Analytics Library
-	* Productivity tools for compiling Python* code into optimized instructions
-	* Essential Python* bindings for easing integration of Intel® native tools with your Python* project
+    * Support for the latest CPU instructions
+    * Near-native performance through acceleration of core numerical and machine learning packages with libraries like the Intel® oneAPI Math Kernel Library (oneMKL) and Intel® oneAPI Data Analytics Library
+    * Productivity tools for compiling Python* code into optimized instructions
+    * Essential Python* bindings for easing integration of Intel® native tools with your Python* project
 
 * ***Intel® Extension for Scikit-Learn****
 
   Using Scikit-Learn* with this extension, you can:
 
-	* Speed up training and inference by up to 100x with the equivalent mathematical accuracy.
-	* Continue to use the open source Scikit-Learn* API.
-	* Enable and disable the extension with a couple lines of code or at the command line.
+    * Speed up training and inference by up to 100x with the equivalent mathematical accuracy.
+    * Continue to use the open source Scikit-Learn* API.
+    * Enable and disable the extension with a couple lines of code or at the command line.
 
 For more details, visit [Intel® Distribution for Python*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/distribution-for-python.html), [Intel® Extension for Scikit-Learn*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/scikit-learn.html), the [Network Intrusion Detection](https://github.com/oneapi-src/network-intrusion-detection) GitHub repository.
 
@@ -62,7 +51,7 @@ The reference kit implementation is a reference solution to the described use ca
 
 **Example Input**                                 | **Example Output** |
 | :---: | :---: |
-|Values for avg_ipt, bytes_in, bytes_out, dest_ip, dest_port, entropy, num_pkts_out, num_pkts_in, proto, src_ip,	src_port,	time_end,	time_start,	total_entropy, label,	duration | {'Malignant': 0.778, 'Benign': 0.023, 'Outlier': 0.176}
+|Values for avg_ipt, bytes_in, bytes_out, dest_ip, dest_port, entropy, num_pkts_out, num_pkts_in, proto, src_ip,    src_port,    time_end,    time_start,    total_entropy, label,    duration | {'Malignant': 0.778, 'Benign': 0.023, 'Outlier': 0.176}
 
 ### Hyper-parameter Analysis
 In realistic scenarios, an analyst will run the same classification algorithm multiple times on the same dataset, scanning across different hyper-parameters.  To capture this, we measure the total amount of time it takes to generate classification results (F1-score) in loop hyper-parameters for a fixed algorithm, which we define as hyper-parameter analysis. In practice, the results of each hyper-parameter analysis provides the analyst with many different clusters that they can take and further analyze.
@@ -110,7 +99,7 @@ There are workflow-specific hardware and software setup requirements to run this
 | RAM: 187 GB
 | Recommended Free Disk Space: 20 GB or more
 
-Operating System: Ubuntu* 22.04 LTS.
+Operating System: Any Linux* distribution [supported by the 'conda' package manager](https://www.anaconda.com/docs/getting-started/miniconda/system-requirements).
 
 ## How it Works
 As mentioned above this Network Intrusion Detection System uses NuSVC from the Scikit-Learn* library to train an artificial intelligence (AI) model and generate labels by classification for the passed in data.
@@ -124,14 +113,14 @@ The use case can be summarized in three steps:
 Start by **defining an environment variable** that will store the workspace path, this can be an existing directory or one to be created in further steps. This ENVVAR will be used for all the commands executed using absolute paths.
 
 [//]: # (capture: baremetal)
-```bash
+```shell
 export WORKSPACE=$PWD/network-intrusion-detection
 ```
 
 Define `DATA_DIR` and `OUTPUT_DIR`.
 
 [//]: # (capture: baremetal)
-```bash
+```shell
 export DATA_DIR=$WORKSPACE/data
 export OUTPUT_DIR=$WORKSPACE/output
 ```
@@ -146,41 +135,29 @@ directory.
 mkdir -p $WORKSPACE && cd $WORKSPACE
 ```
 
-```bash
+```shell
 git clone https://github.com/oneapi-src/network-intrusion-detection $WORKSPACE
 ```
-### Set Up Conda
-To learn more, please visit [install anaconda on Linux](https://docs.anaconda.com/free/anaconda/install/linux/).
+### Set Up Conda through Miniforge
+To learn more, please visit [the miniforge page](https://github.com/conda-forge/miniforge).
 
-```bash
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
+```shell
+wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh
 ```
 ### Set Up Environment
-Install and set the libmamba solver as default solver. Run the following commands:
-
-```bash
-conda install -n base conda-libmamba-solver -y
-conda config --set solver libmamba
-```
 
 The [env/intel_env.yml](./env/intel_env.yml) file contains all dependencies to create the Intel® environment.
 
-| **Packages required in YAML file**| **Version**
-| :---                              | :--
-| python                            | 3.10
-| intelpython3_full                 | 2024.0.0
-| pandas                            | 2.1.3
+Execute next command to create the conda environment.
 
- Execute next command to create the conda environment.
-
-```bash
+```shell
 conda env create -f $WORKSPACE/env/intel_env.yml
 ```
 
 During this setup, `intrusion_detection_intel` conda environment will be created with the dependencies listed in the YAML configuration. Use the following command to activate the environment created above:
 
-```bash
+```shell
 conda activate intrusion_detection_intel
 ```
 
@@ -191,22 +168,22 @@ To setup the data for run the workflow, do the following:
 
 2. Download the data from https://www.kaggle.com/datasets/mryanm/luflow-network-intrusion-detection-data-set, save it to data directory.
 
-	```bash
+    ```shell
     cd $DATA_DIR
     kaggle datasets download -d mryanm/luflow-network-intrusion-detection-data-set
-	```
+    ```
 
 3. Unzip `2021.02.17.csv` file to data directory.
 
-    ```bash
+    ```shell
     unzip -p luflow-network-intrusion-detection-data-set.zip "*/2021.02.17.csv" > 2021.02.17.csv
-	```
+    ```
 4. Remove `luflow-network-intrusion-detection-data-set.zip` file from data directory and return to workspace path.
-	
-	```bash
-	rm luflow-network-intrusion-detection-data-set.zip
+    
+    ```shell
+    rm luflow-network-intrusion-detection-data-set.zip
     cd $WORKSPACE
-	```
+    ```
 
 ## Supported Runtime Environment
 You can execute the references pipelines using the following environments:
@@ -216,7 +193,7 @@ You can execute the references pipelines using the following environments:
 Follow these instructions to set up and run this workflow on your own development system.
 
 #### Set Up System Software
-Our examples use the ``conda`` package and environment on your local computer. If you don't already have ``conda`` installed, go to [Set up conda](#set-up-conda) or see the [Conda* Linux installation instructions](https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html).
+Our examples use the ``conda`` package and environment on your local computer. If you don't already have ``conda`` installed, go to [Set up conda through Miniforge](#set-up-conda-through-miniforge) or see the [Miniforge* installation instructions](https://github.com/conda-forge/miniforge).
 
 #### Run Workflow
 Once we create and activate the `intrusion_detection_intel` environment, we can run the next steps.
@@ -276,7 +253,7 @@ In a realistic pipeline, this training process would follow the [Optimized E2E a
 ##### Running classification Analysis/Predictions
 The `inference.py` script performs predictions and takes the following arguments:
 
-```bash
+```shell
 usage: src/inference.py [-h] [-l LOGFILE] [-c CSVPATH] -m MODELPATH [-d DATASETSIZE]
 
 optional arguments:
@@ -336,7 +313,7 @@ python $WORKSPACE/src/inference.py --modelpath $OUTPUT_DIR/models/NUSVC_model_hp
 #### Clean Up Bare Metal
 Follow these steps to restore your `$WORKSPACE` directory to an initial step. Please note that all downloaded dataset files, conda environment, and logs created by workflow will be deleted. Before executing next steps back up your important files.
 
-```bash
+```shell
 # activate base environment
 conda activate base
 # delete conda environment created
@@ -344,7 +321,7 @@ conda env remove -n intrusion_detection_intel
 ```
 
 [//]: # (capture: baremetal)
-```bash
+```shell
 # delete all data generated
 rm $DATA_DIR/data.csv 
 rm -rf $DATA_DIR/2021.02.17.csv
@@ -355,7 +332,7 @@ rm -rf $OUTPUT_DIR
 ### Expected Output
 The `run_benchmarks.py` outputs are input data rows, dataset size rows, data preprocessing time and training time. For example, training NuSVC model for data size 300K should return similar results as shown below:
 
-```bash
+```
 Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
 INFO:__main__:Loading intel libraries...
 INFO:__main__:Input data rows: 592589
@@ -368,7 +345,7 @@ INFO:__main__:NUSVC training time w/o hp tuning is ----> 25.118885 secs
 
 The `inference.py` outputs are input data rows, dataset size rows, batch prediction time and classification report:
 
-```bash
+```
 Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
 INFO:__main__:Input data rows: 592589
 INFO:__main__:Dataset rows: 10000
@@ -390,7 +367,7 @@ INFO:__main__:Average Real Time inference time taken ---> 0.004962 secs
 
  Running the `run_benchmarks.py` with hyperparameter tuning with NuSVC for data size 300K, expected outputs are:
 
-```bash
+```
 Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
 INFO:__main__:Loading intel libraries...
 INFO:__main__:Input data rows: 592589
@@ -415,7 +392,7 @@ INFO:__main__:NUSVC training time with best params is---------> 17.639800 secs
 
 Run the inference using the saved model created with hyperparameter tuning should return similar results as shown below:
 
-```bash
+```
 Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
 INFO:__main__:Input data rows: 592589
 INFO:__main__:Dataset rows: 10000
@@ -437,7 +414,7 @@ INFO:__main__:Average Real Time inference time taken ---> 0.005621 secs
 
 Machine Learning models will be saved in ``$OUTPUT_DIR/models``:
 
-```bash
+```
 NUSVC_model_hp.sav
 NuSVC_model.sav
 ```
@@ -454,10 +431,9 @@ To build a Network Intrusion Detection System, Data Scientists will need to trai
 ## Learn More
 For more information about or to read about other relevant workflow examples, see these guides and software resources:
 
+- [Intel® Extension for Scikit-Learn*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/scikit-learn.html)
 - [Intel® AI Analytics Toolkit (AI Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/ai-analytics-toolkit.html)
 - [Intel® Distribution for Python*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/distribution-for-Python*.html)
-- [Intel® Distribution of Modin*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/distribution-of-modin.html)
-- [Intel® Extension for Scikit-Learn*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/scikit-learn.html)
 
 ## Support
 If you have questions or issues about this use case, want help with troubleshooting, want to report a bug or submit enhancement requests, please submit a GitHub issue.

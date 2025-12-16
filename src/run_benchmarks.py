@@ -213,7 +213,7 @@ if __name__ == "__main__":
             logger.info("Training with SVC")
             start_time_svc = time.time()  # Start of timer
             clf = SVC().fit(X_train, Y_train)  # Train the model
-            logger.info("SVC training time w/o hp tuning is ----> %f secs", time.time()-start_time_svc)  # End of timer .Print the time.
+            logger.info("SVC training time w/o hp tuning is ----> %f secs", time.time()-start_time_svc)  # End of timer. Print the time.
             filename = os.path.join(FLAGS.save_model_dir, 'SVC_model.sav')  # Model name initialization
             pickle.dump(clf, open(filename, 'wb'))  # Save the model
 
@@ -222,7 +222,7 @@ if __name__ == "__main__":
             logger.info("Training with NuSVC")
             start_time_nusvc = time.time()  # Start of timer
             clf = NuSVC(nu=0.2).fit(X_train, Y_train)  # Train the model
-            logger.info("NUSVC training time w/o hp tuning is ----> %f secs", time.time()-start_time_nusvc)  # End of timer .Print the time.
+            logger.info("NUSVC training time w/o hp tuning is ----> %f secs", time.time()-start_time_nusvc)  # End of timer. Print the time.
             filename = os.path.join(FLAGS.save_model_dir, 'NuSVC_model.sav')  # Model name initialization
             pickle.dump(clf, open(filename, 'wb'))  # Save the model
 
