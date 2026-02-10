@@ -1,1 +1,0 @@
-Please follow the "Download the Dataset" and "Dataset Preprocessing" sections mentioned in README file to get the dataset ready.

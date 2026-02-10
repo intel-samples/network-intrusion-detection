@@ -1,0 +1,9 @@
+name: network_intrusion
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - polars
+  - scikit-learn
+  - scikit-learn-intelex >=2025.11

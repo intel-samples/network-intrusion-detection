@@ -1,0 +1,5 @@
+numpy
+polars
+scikit-learn
+scikit-learn-intelex>=2025.11
+
