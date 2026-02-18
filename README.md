@@ -302,7 +302,7 @@ INFO:root:Model and transformers fitting took 8.561280250549316 seconds.
 INFO:root:Saving model pipeline to file: saved_models/reference_model_pipeline.pkl
 ```
 
-Enabling the optimizations from the Extension from scikit-learn reduced the model fitting time from 43 seconds to 8.6 seconds (a **5x** performance improvement). To evaluate the results from this optimized model, execute the `run_evaluation.py` script again:
+Enabling the optimizations from the Extension from scikit-learn reduced the model fitting time from 43 seconds to 8.6 seconds (a **5x** performance improvement for these example executions). To evaluate the results from this optimized model, execute the `run_evaluation.py` script again:
 ```shell
 python src/run_evaluation.py
 ```
@@ -329,7 +329,7 @@ INFO:root:shape: (3, 4)
 └─────────────────┴────────────────────┴──────────────────┴────────────┘
 ```
 
-The Extension for scikit-learn* also reduced the model prediction time from 7.2 seconds to 3.2 seconds (a **2.3x** improvement).
+The Extension for scikit-learn* also reduced the model prediction time from 7.2 seconds to 3.2 seconds (a **2.3x** improvement for these example executions).
 
 ## Tuning hyperparameters
 
